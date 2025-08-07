@@ -1,4 +1,7 @@
 FROM php:8.1-apache
 
-# Copy semua file dari direktori sekarang ke dalam /var/www/html
+# Aktifkan mod_rewrite (jika perlu)
+RUN a2enmod rewrite
+
+# Salin semua file ke direktori hosting Apache
 COPY . /var/www/html/
