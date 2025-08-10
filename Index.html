@@ -1,0 +1,9 @@
+<iframe id="targetSite" src="https://rbtvplus.com" style="width:100%;height:100vh;border:none;"></iframe>
+
+<script>
+document.getElementById('targetSite').onload = function() {
+    let frameDoc = this.contentDocument || this.contentWindow.document;
+    let ads = frameDoc.querySelectorAll('a[href*="cutt.ly/rbtv-app"]');
+    ads.forEach(ad => ad.remove());
+};
+</script>
