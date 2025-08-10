@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akses Bebas Iklan</title>
+<title>Akses Tanpa Iklan</title>
 <style>
     body {
         margin: 0;
         padding: 0;
-        height: 100vh;
+        overflow: hidden;
     }
     iframe {
         width: 100%;
@@ -19,31 +19,32 @@
 </head>
 <body>
 
-<!-- iframe dengan sandbox ketat -->
-<iframe 
-    id="targetSite" 
-    src="https://ganz0mxu.5m27soldqbw8gyard.shop/id/football/german-bundesliga-2-4206826/vfl-bochum-1848-vs-sv-elversberg.html?icg=SUQ&ilang=id"
-    sandbox="allow-same-origin allow-forms allow-scripts"
-    referrerpolicy="no-referrer"
-></iframe>
+<iframe id="targetSite" src="https://ganz0mxu.5m27soldqbw8gyard.shop/id/football/german-bundesliga-2-4206826/vfl-bochum-1848-vs-sv-elversberg.html?icg=SUQ&ilang=id"></iframe>
 
 <script>
-document.getElementById('targetSite').addEventListener("load", function() {
+// Blokir pop-up window.open
+window.open = function() {
+    console.warn("Pop-up diblokir!");
+    return null;
+};
+
+// Hapus iklan dalam iframe setelah dimuat
+document.getElementById('targetSite').onload = function() {
     try {
         let frameDoc = this.contentDocument || this.contentWindow.document;
 
-        // Hapus iklan berdasarkan link yang mengarah ke cutt.ly/rbtv-app
-        let ads = frameDoc.querySelectorAll('a[href*="cutt.ly/rbtv-app"]');
+        // Contoh: hapus semua link iklan
+        let ads = frameDoc.querySelectorAll('a[href*="cutt.ly"], a[href*="ads"], a[href*="offer"]');
         ads.forEach(ad => ad.remove());
 
-        // Hapus elemen pop-up (jika punya class atau ID tertentu)
-        let popups = frameDoc.querySelectorAll('.popup, #popup, [onclick*="window.open"]');
-        popups.forEach(p => p.remove());
+        // Hapus elemen dengan ID/class iklan
+        let adElements = frameDoc.querySelectorAll('#ads, .ads, .advertisement');
+        adElements.forEach(el => el.remove());
 
-    } catch (err) {
-        console.warn("Tidak bisa memodifikasi konten karena pembatasan keamanan browser.");
+    } catch (e) {
+        console.warn("Tidak bisa akses konten iframe (kemungkinan beda domain / sandbox).");
     }
-});
+};
 </script>
 
 </body>
