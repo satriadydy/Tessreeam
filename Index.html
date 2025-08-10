@@ -2,22 +2,46 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Akses RBTV Tanpa Iklan Tertentu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akses Bebas Iklan</title>
 <style>
-    body, html { margin:0; padding:0; height:100%; }
-    iframe { width:100%; height:100%; border:none; }
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+    iframe {
+        width: 100%;
+        height: 100vh;
+        border: none;
+    }
 </style>
 </head>
 <body>
 
-<iframe src="https://rbtvplus.com" id="webview"></iframe>
+<!-- iframe dengan sandbox ketat -->
+<iframe 
+    id="targetSite" 
+    src="https://rbtvplus.com"
+    sandbox="allow-same-origin allow-forms allow-scripts"
+    referrerpolicy="no-referrer"
+></iframe>
 
 <script>
-document.addEventListener("click", function(e) {
-    let target = e.target.closest("a");
-    if (target && target.href.includes("cutt.ly/rbtv-app")) {
-        e.preventDefault();
-        alert("Link iklan diblokir 🚫");
+document.getElementById('targetSite').addEventListener("load", function() {
+    try {
+        let frameDoc = this.contentDocument || this.contentWindow.document;
+
+        // Hapus iklan berdasarkan link yang mengarah ke cutt.ly/rbtv-app
+        let ads = frameDoc.querySelectorAll('a[href*="cutt.ly/rbtv-app"]');
+        ads.forEach(ad => ad.remove());
+
+        // Hapus elemen pop-up (jika punya class atau ID tertentu)
+        let popups = frameDoc.querySelectorAll('.popup, #popup, [onclick*="window.open"]');
+        popups.forEach(p => p.remove());
+
+    } catch (err) {
+        console.warn("Tidak bisa memodifikasi konten karena pembatasan keamanan browser.");
     }
 });
 </script>
