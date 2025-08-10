@@ -14,6 +14,20 @@
 </style>
 </head>
 <body>
-<iframe src="https://gentle-block-5894.974hyacintha.workers.dev/ganz0mxu.5m27soldqbw8gyard.shop"></iframe>
+
+<script>
+  // Ambil parameter ?url= dari query string
+  const params = new URLSearchParams(window.location.search);
+  const targetUrl = params.get("url");
+
+  if (targetUrl) {
+    // Gabungkan dengan Cloudflare Workers kamu
+    const proxyUrl = "https://gentle-block-5894.974hyacintha.workers.dev/" + targetUrl;
+    document.write(`<iframe src="${proxyUrl}"></iframe>`);
+  } else {
+    document.body.innerHTML = "<h3>⚠️ Parameter ?url= tidak ditemukan.</h3>";
+  }
+</script>
+
 </body>
 </html>
